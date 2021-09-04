@@ -1,33 +1,24 @@
-var time = 0;
-var timeStart = 9;
-var timeEnd = 17 + 1;
+$(document).ready(function () {
+    $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
 
-function taskEl(timeStar, timeEnd) {
-    var containerEl = $(".container");
+    $(".saveBtn").on("click", function (){
+        var text = $(this).siblings(".description").val();
+        var time = $(this).parent().attr("id");
+        events.push({ description: text, time:time});
+        localStorage.setItem("events", JSON.stringify(events));
+    })
+})
 
-    var timeBlockEl = $("<div></div>").addClass("row time-block");
+$("#hour9 .description").val(localStorage.getItem("hour9"));
+$("#hour10 .description").val(localStorage.getItem("hour10"));
+$("#hour11 .description").val(localStorage.getItem("hour11"));
+$("#hour12 .description").val(localStorage.getItem("hour12"));
+$("#hour13 .description").val(localStorage.getItem("hour13"));
+$("#hour14 .description").val(localStorage.getItem("hour14"));
+$("#hour15 .description").val(localStorage.getItem("hour15"));
+$("#hour16 .description").val(localStorage.getItem("hour16"));
+$("#hour17 .description").val(localStorage.getItem("hour17"));
 
-    var hourEl = $("<div></div>").addClass("col-1 hour");
-
-    var textBlock = $("<textarea></textarea>").addClass("col-10").attr("id", "textarea");
-
-    var saveBtn = $("<button></button>").addClass("col saveBtn").html("<i class='fas fa-plus'></i>");
-
-    //             9            17+1
-    for (var i = timeStar; i < timeEnd; i++) {
-        timeBlockEl.html(hourEl.html(
-            "<div>" + (moment().set('hour', i).format('h a')).toUpperCase()
-            + "</div>").add(containerEl).add(saveBtn),
-
-            textBlock.text(schedule[i]),
-            saveBtn
-        );
-
-        containerEl.append(timeBlockEl.clone()
-        .attr("id", (moment().set('hour', i).format('H')))
-        );
-    };
-};
 
 
 
